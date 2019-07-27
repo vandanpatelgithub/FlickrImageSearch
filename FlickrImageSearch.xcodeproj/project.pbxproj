@@ -18,6 +18,9 @@
 		2BA2E39C22ECA46800669D19 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E39B22ECA46800669D19 /* HelperFunctions.swift */; };
 		2BA2E39E22ECA68900669D19 /* HelperFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E39D22ECA68900669D19 /* HelperFunctionsTests.swift */; };
 		2BA2E39F22ECA8A000669D19 /* FoodImageSearchResponseMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BA2E39122ECA10500669D19 /* FoodImageSearchResponseMock.json */; };
+		2BA2E3A122ECCCCC00669D19 /* PhotoUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3A022ECCCCC00669D19 /* PhotoUIModel.swift */; };
+		2BA2E3A322ECCD2900669D19 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3A222ECCD2900669D19 /* Utilities.swift */; };
+		2BA2E3A522ECCE1300669D19 /* UtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3A422ECCE1300669D19 /* UtilitiesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		2BA2E39922ECA3B900669D19 /* SearchResponseDeserializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseDeserializationTests.swift; sourceTree = "<group>"; };
 		2BA2E39B22ECA46800669D19 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		2BA2E39D22ECA68900669D19 /* HelperFunctionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctionsTests.swift; sourceTree = "<group>"; };
+		2BA2E3A022ECCCCC00669D19 /* PhotoUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUIModel.swift; sourceTree = "<group>"; };
+		2BA2E3A222ECCD2900669D19 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		2BA2E3A422ECCE1300669D19 /* UtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,7 @@
 		2BA2E36F22EC9F7400669D19 /* FlickrImageSearch */ = {
 			isa = PBXGroup;
 			children = (
+				2BA2E3A222ECCD2900669D19 /* Utilities.swift */,
 				2BA2E39322ECA11C00669D19 /* ImageSearchModule */,
 				2BA2E37022EC9F7400669D19 /* AppDelegate.swift */,
 				2BA2E37222EC9F7400669D19 /* ViewController.swift */,
@@ -101,11 +108,12 @@
 		2BA2E38422EC9F7600669D19 /* FlickrImageSearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				2BA2E3A422ECCE1300669D19 /* UtilitiesTests.swift */,
+				2BA2E39B22ECA46800669D19 /* HelperFunctions.swift */,
+				2BA2E39D22ECA68900669D19 /* HelperFunctionsTests.swift */,
 				2BA2E39922ECA3B900669D19 /* SearchResponseDeserializationTests.swift */,
 				2BA2E39022ECA0DD00669D19 /* Mocks */,
 				2BA2E38722EC9F7600669D19 /* Info.plist */,
-				2BA2E39B22ECA46800669D19 /* HelperFunctions.swift */,
-				2BA2E39D22ECA68900669D19 /* HelperFunctionsTests.swift */,
 			);
 			path = FlickrImageSearchTests;
 			sourceTree = "<group>";
@@ -131,6 +139,7 @@
 			children = (
 				2BA2E39522ECA19300669D19 /* Photo.swift */,
 				2BA2E39722ECA28200669D19 /* SearchResponse.swift */,
+				2BA2E3A022ECCCCC00669D19 /* PhotoUIModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -238,9 +247,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BA2E3A322ECCD2900669D19 /* Utilities.swift in Sources */,
 				2BA2E39822ECA28200669D19 /* SearchResponse.swift in Sources */,
 				2BA2E39622ECA19300669D19 /* Photo.swift in Sources */,
 				2BA2E37322EC9F7400669D19 /* ViewController.swift in Sources */,
+				2BA2E3A122ECCCCC00669D19 /* PhotoUIModel.swift in Sources */,
 				2BA2E37122EC9F7400669D19 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +262,7 @@
 			files = (
 				2BA2E39A22ECA3B900669D19 /* SearchResponseDeserializationTests.swift in Sources */,
 				2BA2E39E22ECA68900669D19 /* HelperFunctionsTests.swift in Sources */,
+				2BA2E3A522ECCE1300669D19 /* UtilitiesTests.swift in Sources */,
 				2BA2E39C22ECA46800669D19 /* HelperFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

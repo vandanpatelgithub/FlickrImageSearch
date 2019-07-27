@@ -10,22 +10,16 @@
 import XCTest
 
 class SearchResponseDeserializationTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-    }
+    
+    let decoder = JSONDecoder()
     
     func testDeserialization() {
         HelperFunctions.shared.readJSONFromFile(fileName: "FoodImageSearchResponseMock") { (result) in
             switch result {
             case let .success(data):
                 do {
-                    let decoder = JSONDecoder()
-                    let searchResponse = try decoder.decode(SearchResponse.self, from: data)
+                    
+                    let searchResponse = try self.decoder.decode(SearchResponse.self, from: data)
                     XCTAssertNotNil(searchResponse)
                 }
                 catch {
