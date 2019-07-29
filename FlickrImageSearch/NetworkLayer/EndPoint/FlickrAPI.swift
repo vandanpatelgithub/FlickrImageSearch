@@ -13,11 +13,12 @@ enum FlickrMethods: String {
 }
 
 enum FlickrAPIConstants: String {
-    case method = "method"
-    case apiKey = "api_key"
-    case text   = "text"
-    case format = "format"
-    case page   = "page"
+    case method     = "method"
+    case apiKey     = "api_key"
+    case text       = "text"
+    case format     = "format"
+    case page       = "page"
+    case validJSON  = "nojsoncallback"
 }
 
 public enum FlickrAPI {
@@ -54,7 +55,8 @@ extension FlickrAPI: EndPointType {
                 FlickrAPIConstants.apiKey.rawValue: NetworkManager.FlickrAPIKey,
                 FlickrAPIConstants.text.rawValue: text,
                 FlickrAPIConstants.format.rawValue: NetworkManager.responseFormat,
-                FlickrAPIConstants.page.rawValue: "\(page)"
+                FlickrAPIConstants.page.rawValue: "\(page)",
+                FlickrAPIConstants.validJSON.rawValue: "\(1)"
                 ])
         }
     }

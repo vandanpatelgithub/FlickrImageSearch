@@ -12,9 +12,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        NetworkManager().getPhotos(forSearchText: "Food", andPageNo: 1) { (response, error) in
+            if let response = response {
+                print("\(response.photos.currentPage)")
+            }
+        }
     }
-
-
 }
 
