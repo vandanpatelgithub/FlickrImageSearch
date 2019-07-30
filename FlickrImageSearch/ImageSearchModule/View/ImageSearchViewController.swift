@@ -37,20 +37,10 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: photoCellReuseIdentifier,
-            for: indexPath) as? PhotoCell else {
-                return UICollectionViewCell()
-        }
-        
-        let photo = self.photos[indexPath.row]
-        presenter?.loadImage(withURL: photo.imageURL, completion: { (data) in
-            guard let data = data else { return }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                cell.photoImageView.image = image
-            }
-        })
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellReuseIdentifier,
+                                                            for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
+        cell.presenter = self.presenter
+        cell.populateCell(withPhoto: self.photos[indexPath.row])
         return cell
     }
     
