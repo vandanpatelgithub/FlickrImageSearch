@@ -8,12 +8,20 @@
 
 import Foundation
 
-struct NetworkManager {
+protocol NetworkManagable {
+    func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>
+    func getPhotos(forSearchText text: String,
+                   andPageNo page: Int,
+                   completion: @escaping (_ searchResponse: SearchResponse?, _ error: String?) ->())
+    func getPhoto(forURL url: String, completion: @escaping (_ data: Data?, _ error: String?) -> ())
+}
+
+struct NetworkManager: NetworkManagable {
     static let FlickrAPIKey = "0fe1aaa149e2cd9cfae6d59c927e453f"
     static let responseFormat = "json"
     private let router = Router<FlickrAPI>()
     
-    private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
+    internal func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         switch response.statusCode {
         case 200...299: return .success
         case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)
@@ -53,6 +61,32 @@ struct NetworkManager {
                 }
                 
             case .failure(let networkFailureError):
+                completion(nil, networkFailureError)
+            }
+        }
+    }
+    
+    func getPhoto(forURL url: String, completion: @escaping (_ data: Data?, _ error: String?) -> ()) {
+        router.request(.loadImage(forURL: url)) { (data, response, error) in
+            guard error == nil else {
+                completion(nil, NetworkResponse.networkConnectionError.rawValue)
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(nil, NetworkResponse.invalidResponse.rawValue)
+                return
+            }
+            
+            let result = self.handleNetworkResponse(response)
+            switch result {
+            case .success:
+                guard let responseData = data else {
+                    completion(nil, NetworkResponse.noData.rawValue)
+                    return
+                }
+                completion(responseData, nil)
+            case let .failure(networkFailureError):
                 completion(nil, networkFailureError)
             }
         }

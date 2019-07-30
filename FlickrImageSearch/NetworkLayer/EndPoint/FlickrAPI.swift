@@ -23,6 +23,7 @@ enum FlickrAPIConstants: String {
 
 public enum FlickrAPI {
     case searchMovies(text: String, page: Int)
+    case loadImage(forURL: String)
 }
 
 extension FlickrAPI: EndPointType {
@@ -33,6 +34,11 @@ extension FlickrAPI: EndPointType {
                 fatalError("baseURL could not be configured.")
             }
             return url
+        case let .loadImage(urlString):
+            guard let url = URL(string: urlString) else {
+                fatalError("baseURL could not be configured.")
+            }
+            return url
         }
     }
     
@@ -40,6 +46,8 @@ extension FlickrAPI: EndPointType {
         switch self {
         case .searchMovies:
             return "services/rest/"
+        case .loadImage:
+            return ""
         }
     }
     
@@ -58,6 +66,8 @@ extension FlickrAPI: EndPointType {
                 FlickrAPIConstants.page.rawValue: "\(page)",
                 FlickrAPIConstants.validJSON.rawValue: "\(1)"
                 ])
+        case .loadImage:
+            return .request
         }
     }
 }
