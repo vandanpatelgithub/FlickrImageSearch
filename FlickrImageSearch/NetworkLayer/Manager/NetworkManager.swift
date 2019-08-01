@@ -9,7 +9,6 @@
 import Foundation
 
 protocol NetworkManagable {
-    func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>
     func getPhotos(forSearchText text: String,
                    andPageNo page: Int,
                    completion: @escaping (_ searchResponse: SearchResponse?, _ error: String?) ->())

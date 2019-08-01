@@ -17,7 +17,6 @@ protocol ImageSearchInteractable: class {
 }
 
 class ImageSearchInteractor {
-    var presenter: ImageSearchPresentable?
     let networkManager: NetworkManagable
     
     init(networkManager: NetworkManagable) {
