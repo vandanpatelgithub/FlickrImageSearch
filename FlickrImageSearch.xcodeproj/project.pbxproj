@@ -31,6 +31,8 @@
 		2BA2E3CA22ED5AE000669D19 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3C922ED5AE000669D19 /* NetworkManager.swift */; };
 		2BBC0C9A22EFB9690072252B /* ImageSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0C9922EFB9690072252B /* ImageSearchPresenter.swift */; };
 		2BBC0C9D22EFBB3B0072252B /* ImageSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0C9C22EFBB3B0072252B /* ImageSearchInteractor.swift */; };
+		2BBC0CA522F285830072252B /* PhotoCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0CA422F285830072252B /* PhotoCellInteractor.swift */; };
+		2BBC0CA722F28A7A0072252B /* PhotoCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0CA622F28A7A0072252B /* PhotoCellPresenter.swift */; };
 		2BE18A2F22EF63260026213E /* ImageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE18A2D22EF63260026213E /* ImageSearchViewController.swift */; };
 		2BE18A3422EF65DC0026213E /* ImageSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE18A3322EF65DC0026213E /* ImageSearch.storyboard */; };
 		2BE18A3A22EFA2EE0026213E /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE18A3922EFA2EE0026213E /* PhotoCell.swift */; };
@@ -76,6 +78,8 @@
 		2BA2E3C922ED5AE000669D19 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		2BBC0C9922EFB9690072252B /* ImageSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchPresenter.swift; sourceTree = "<group>"; };
 		2BBC0C9C22EFBB3B0072252B /* ImageSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchInteractor.swift; sourceTree = "<group>"; };
+		2BBC0CA422F285830072252B /* PhotoCellInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellInteractor.swift; sourceTree = "<group>"; };
+		2BBC0CA622F28A7A0072252B /* PhotoCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellPresenter.swift; sourceTree = "<group>"; };
 		2BE18A2D22EF63260026213E /* ImageSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchViewController.swift; sourceTree = "<group>"; };
 		2BE18A3322EF65DC0026213E /* ImageSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImageSearch.storyboard; sourceTree = "<group>"; };
 		2BE18A3922EFA2EE0026213E /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				2BBC0C9922EFB9690072252B /* ImageSearchPresenter.swift */,
+				2BBC0CA622F28A7A0072252B /* PhotoCellPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				2BBC0C9C22EFBB3B0072252B /* ImageSearchInteractor.swift */,
+				2BBC0CA422F285830072252B /* PhotoCellInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 				2BBC0C9A22EFB9690072252B /* ImageSearchPresenter.swift in Sources */,
 				2BE18A2F22EF63260026213E /* ImageSearchViewController.swift in Sources */,
 				2BA2E3A322ECCD2900669D19 /* Utilities.swift in Sources */,
+				2BBC0CA522F285830072252B /* PhotoCellInteractor.swift in Sources */,
 				2BE18A3A22EFA2EE0026213E /* PhotoCell.swift in Sources */,
 				2BA2E3BA22ED495100669D19 /* ParameterEncoding.swift in Sources */,
 				2BA2E39822ECA28200669D19 /* SearchResponse.swift in Sources */,
@@ -380,6 +387,7 @@
 				2BA2E3BB22ED495100669D19 /* URLParameterEncoder.swift in Sources */,
 				2BA2E3C322ED514300669D19 /* Router.swift in Sources */,
 				2BBC0C9D22EFBB3B0072252B /* ImageSearchInteractor.swift in Sources */,
+				2BBC0CA722F28A7A0072252B /* PhotoCellPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

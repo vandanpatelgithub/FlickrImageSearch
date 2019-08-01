@@ -10,14 +10,12 @@ import Foundation
 
 //MARK: - ImageSearchInteractable Protocol
 protocol ImageSearchInteractable: class {
-    func getPhotos(forSearchText text: String,
-                   andPageNo page: Int,
-                   completion: @escaping (_ searchResponse: SearchResponse?, _ error: String?) ->())
-    func getPhoto(forURL url: String, completion: @escaping (_ data: Data?, _ error: String?) -> ())
+    func getPhotos(forSearchText text: String, andPageNo page: Int)
 }
 
 class ImageSearchInteractor {
     let networkManager: NetworkManagable
+    var presenter: ImageSearchPresentable?
     
     init(networkManager: NetworkManagable) {
         self.networkManager = networkManager
@@ -26,13 +24,10 @@ class ImageSearchInteractor {
 
 // MARK: ImageSearchInteratable Conformation
 extension ImageSearchInteractor: ImageSearchInteractable {
-    func getPhoto(forURL url: String, completion: @escaping (Data?, String?) -> ()) {
-        networkManager.getPhoto(forURL: url, completion: completion)
-    }
-    
-    func getPhotos(forSearchText text: String,
-                   andPageNo page: Int,
-                   completion: @escaping (SearchResponse?, String?) -> ()) {
-        networkManager.getPhotos(forSearchText: text, andPageNo: page, completion: completion)
+    func getPhotos(forSearchText text: String, andPageNo page: Int) {
+        networkManager.getPhotos(forSearchText: text, andPageNo: page) { [weak self] (searchResponse, errorString) in
+            if errorString != nil { self?.presenter?.didGetPhotos([]) }
+            else if searchResponse != nil { self?.presenter?.didGetPhotos(searchResponse?.photos.photos ?? []) }
+        }
     }
 }

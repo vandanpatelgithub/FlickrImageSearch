@@ -11,7 +11,7 @@ import Foundation
 // MARK: - ImageSearchPresentable protocol
 protocol ImageSearchPresentable: class {
     func onViewDidLoad()
-    func loadImage(withURL url: String, completion: @escaping (_ imageData: Data?) -> ())
+    func didGetPhotos(_ photos: [Photo])
 }
 
 class ImageSearchPresenter {
@@ -31,21 +31,13 @@ class ImageSearchPresenter {
 
 // MARK: - ImageSearchPresentable Conformation
 extension ImageSearchPresenter: ImageSearchPresentable {
-    func loadImage(withURL url: String, completion: @escaping (Data?) -> ()) {
-        interactor?.getPhoto(forURL: url, completion: { (data, error) in
-            if let data = data { completion(data) }
-            else { completion(nil) }
-        })
+    func didGetPhotos(_ photos: [Photo]) {
+        for photo in photos { self.photosUIModel.append(self.convertToUIModel(photo)) }
+        self.view.show(photosUIModel)
     }
     
+    #warning("These are hard coded values")
     func onViewDidLoad() {
-        interactor?.getPhotos(forSearchText: "Food", andPageNo: 1, completion: { [weak self] (searchResponse, error) in
-            guard let self = self else { return }
-            if searchResponse != nil && error == nil, let photos = searchResponse?.photos.photos {
-                for photo in photos { self.photosUIModel.append(self.convertToUIModel(photo)) }
-                self.view.show(self.photosUIModel)
-            }
-            else { self.view.show([]) }
-        })
+        interactor?.getPhotos(forSearchText: "Food", andPageNo: 1)
     }
 }

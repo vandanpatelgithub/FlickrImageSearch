@@ -36,11 +36,18 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
         return self.photos.count
     }
     
+    fileprivate func buildCellVIPER(_ cell: PhotoCell, _ photo: PhotoUIModel) {
+        let cellInteractor = PhotoCellInteractor(networkManager: NetworkManager())
+        let cellPresenter = PhotoCellPresenter(view: cell, interactor: cellInteractor, photo: photo)
+        cellInteractor.cellPresenter = cellPresenter
+        cell.presenter = cellPresenter
+        cellPresenter.loadImage()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellReuseIdentifier,
                                                             for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
-        cell.presenter = self.presenter
-        cell.populateCell(withPhoto: self.photos[indexPath.row])
+        buildCellVIPER(cell, self.photos[indexPath.row])
         return cell
     }
     

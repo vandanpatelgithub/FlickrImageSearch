@@ -8,15 +8,18 @@
 
 import UIKit
 
+protocol PhotoCellViewable: class {
+    func showImage(withData data: Data?)
+}
+
 class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var photoImageView: UIImageView!
-    var presenter: ImageSearchPresentable?
-    
-    func populateCell(withPhoto photo: PhotoUIModel) {
-        presenter?.loadImage(withURL: photo.imageURL, completion: { [unowned self] (data) in
-            guard let data = data else { return }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async { self.photoImageView.image = image }
-        })
+    var presenter: PhotoCellPresentable?
+}
+
+extension PhotoCell: PhotoCellViewable {
+    func showImage(withData data: Data?) {
+        guard let data = data else { return }
+        DispatchQueue.main.async { self.photoImageView.image = UIImage(data: data) }
     }
 }

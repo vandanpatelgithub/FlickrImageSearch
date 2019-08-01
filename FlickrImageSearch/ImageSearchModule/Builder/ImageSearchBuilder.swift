@@ -17,6 +17,7 @@ class ImageSearchBuilder {
         let interactor = ImageSearchInteractor(networkManager: NetworkManager())
         let presenter = ImageSearchPresenter(view: vc, interactor: interactor)
         vc.presenter = presenter
+        interactor.presenter = presenter
         presenter.onViewDidLoad()
         return vc
     }
