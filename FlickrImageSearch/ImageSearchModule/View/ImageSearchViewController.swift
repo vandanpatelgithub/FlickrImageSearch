@@ -62,12 +62,24 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            guard let presenter = presenter else { return }
+            if (!presenter.fetchingMore)  {
+                presenter.getNextPagePhotos()
+            }
+        }
+    }
 }
 
 // MARK: - ImageSearchViewable Conformation
 extension ImageSearchViewController: ImageSearchViewable {
     func show(_ photos: [PhotoUIModel]) {
-        self.photos = photos
+        self.photos.append(contentsOf: photos)
         DispatchQueue.main.async { self.collectionView.reloadData() }
     }
 }

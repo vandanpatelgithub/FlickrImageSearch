@@ -26,8 +26,10 @@ class ImageSearchInteractor {
 extension ImageSearchInteractor: ImageSearchInteractable {
     func getPhotos(forSearchText text: String, andPageNo page: Int) {
         networkManager.getPhotos(forSearchText: text, andPageNo: page) { [weak self] (searchResponse, errorString) in
-            if errorString != nil { self?.presenter?.didGetPhotos([]) }
-            else if searchResponse != nil { self?.presenter?.didGetPhotos(searchResponse?.photos.photos ?? []) }
+            if errorString != nil { self?.presenter?.didGetPhotos([], totalPages: 0) }
+            else if let searchResponse = searchResponse {
+                self?.presenter?.didGetPhotos(searchResponse.photos.photos, totalPages: searchResponse.photos.totalPages)
+            }
         }
     }
 }

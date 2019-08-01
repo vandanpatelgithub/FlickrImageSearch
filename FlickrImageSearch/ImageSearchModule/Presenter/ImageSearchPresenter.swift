@@ -11,13 +11,19 @@ import Foundation
 // MARK: - ImageSearchPresentable protocol
 protocol ImageSearchPresentable: class {
     func onViewDidLoad()
-    func didGetPhotos(_ photos: [Photo])
+    func didGetPhotos(_ photos: [Photo], totalPages: Int)
+    func getNextPagePhotos()
+    
+    var fetchingMore: Bool { get set }
 }
 
 class ImageSearchPresenter {
     let view: ImageSearchViewable
     var interactor: ImageSearchInteractable?
     var photosUIModel = [PhotoUIModel]()
+    var currentPage = 0
+    var totalPages: Int?
+    var fetchingMore: Bool = false
     
     init(view: ImageSearchViewable, interactor: ImageSearchInteractable) {
         self.view = view
@@ -31,13 +37,23 @@ class ImageSearchPresenter {
 
 // MARK: - ImageSearchPresentable Conformation
 extension ImageSearchPresenter: ImageSearchPresentable {
-    func didGetPhotos(_ photos: [Photo]) {
+    func getNextPagePhotos() {
+        fetchingMore = true
+        currentPage += 1
+        if currentPage <= self.totalPages ?? 0 {
+          interactor?.getPhotos(forSearchText: "Food", andPageNo: currentPage)
+        }
+    }
+    
+    func didGetPhotos(_ photos: [Photo], totalPages: Int) {
+        fetchingMore = false
         for photo in photos { self.photosUIModel.append(self.convertToUIModel(photo)) }
+        if self.totalPages == nil || self.totalPages != totalPages { self.totalPages = totalPages }
         self.view.show(photosUIModel)
     }
     
-    #warning("These are hard coded values")
     func onViewDidLoad() {
-        interactor?.getPhotos(forSearchText: "Food", andPageNo: 1)
+        currentPage = 1
+        interactor?.getPhotos(forSearchText: "Food", andPageNo: currentPage)
     }
 }
