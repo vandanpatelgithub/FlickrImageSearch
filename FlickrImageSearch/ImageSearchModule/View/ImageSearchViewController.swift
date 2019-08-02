@@ -21,11 +21,19 @@ class ImageSearchViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var photos = [PhotoUIModel]()
     var presenter: ImageSearchPresentable?
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
     
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureActivityIndicatorView()
+    }
+    
+    //MARK: - Configure UI Components
+    func configureActivityIndicatorView() {
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
 }
 
@@ -70,6 +78,7 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
         if offsetY > contentHeight - scrollView.frame.height {
             guard let presenter = presenter else { return }
             if (!presenter.fetchingMore)  {
+                activityIndicator.startAnimating()
                 presenter.getNextPagePhotos()
             }
         }
@@ -80,6 +89,9 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
 extension ImageSearchViewController: ImageSearchViewable {
     func show(_ photos: [PhotoUIModel]) {
         self.photos.append(contentsOf: photos)
-        DispatchQueue.main.async { self.collectionView.reloadData() }
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+        }
     }
 }
