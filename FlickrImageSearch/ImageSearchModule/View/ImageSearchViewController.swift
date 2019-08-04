@@ -13,6 +13,7 @@ var photoCellReuseIdentifier = "photoCell"
 // MARK: - ImageSearchViewable Protocol
 protocol ImageSearchViewable {
     func show(_ photos: [PhotoUIModel])
+    func scrollToTheTop()
 }
 
 class ImageSearchViewController: UIViewController {
@@ -28,12 +29,23 @@ class ImageSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureActivityIndicatorView()
+        configureNavigationBar()
     }
     
     //MARK: - Configure UI Components
     func configureActivityIndicatorView() {
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let searchResultsController = UISearchController(searchResultsController: nil)
+        searchResultsController.searchResultsUpdater = self
+        searchResultsController.obscuresBackgroundDuringPresentation = false
+        searchResultsController.searchBar.placeholder = "Search Food"
+        navigationItem.searchController = searchResultsController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
 
@@ -75,11 +87,10 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         
-        if offsetY > contentHeight - scrollView.frame.height {
+        if offsetY > contentHeight - scrollView.frame.height && contentHeight > 0 {
             guard let presenter = presenter else { return }
             if (!presenter.fetchingMore)  {
-                activityIndicator.startAnimating()
-                presenter.getNextPagePhotos()
+                presenter.getNextPageResults()
             }
         }
     }
@@ -87,11 +98,22 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
 
 // MARK: - ImageSearchViewable Conformation
 extension ImageSearchViewController: ImageSearchViewable {
+    func scrollToTheTop() {
+        collectionView.setContentOffset(.zero, animated: true)
+    }
+    
     func show(_ photos: [PhotoUIModel]) {
-        self.photos.append(contentsOf: photos)
+        self.photos = photos
         DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
             self.collectionView.reloadData()
         }
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+extension ImageSearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        presenter?.getNewSearchResults(forSearchTest: text)
     }
 }

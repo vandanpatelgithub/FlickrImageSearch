@@ -8,11 +8,15 @@
 
 import Foundation
 
+enum ImageSearchPresenterConstants {
+    static let minimumSearchTextLength = 3
+}
+
 // MARK: - ImageSearchPresentable protocol
 protocol ImageSearchPresentable: class {
-    func onViewDidLoad()
     func didGetPhotos(_ photos: [Photo], totalPages: Int)
-    func getNextPagePhotos()
+    func getNewSearchResults(forSearchTest text: String)
+    func getNextPageResults()
     
     var fetchingMore: Bool { get set }
 }
@@ -21,9 +25,12 @@ class ImageSearchPresenter {
     let view: ImageSearchViewable
     var interactor: ImageSearchInteractable?
     var photosUIModel = [PhotoUIModel]()
+    
     var currentPage = 0
     var totalPages: Int?
     var fetchingMore: Bool = false
+    var currentSearchText: String?
+    
     
     init(view: ImageSearchViewable, interactor: ImageSearchInteractable) {
         self.view = view
@@ -37,11 +44,26 @@ class ImageSearchPresenter {
 
 // MARK: - ImageSearchPresentable Conformation
 extension ImageSearchPresenter: ImageSearchPresentable {
-    func getNextPagePhotos() {
-        fetchingMore = true
+    func getNextPageResults() {
         currentPage += 1
-        if currentPage <= self.totalPages ?? 0 {
-          interactor?.getPhotos(forSearchText: "Food", andPageNo: currentPage)
+        fetchingMore = true
+        
+        guard let searchText = currentSearchText, let totalPages = self.totalPages else { return }
+        if currentPage <= totalPages {
+           interactor?.getPhotos(forSearchText: searchText, andPageNo: currentPage)
+        }
+    }
+    
+    func getNewSearchResults(forSearchTest text: String) {
+        currentPage = 1
+        currentSearchText = text
+        self.photosUIModel.removeAll()
+        
+        if text.count > ImageSearchPresenterConstants.minimumSearchTextLength {
+            view.scrollToTheTop()
+            interactor?.getPhotos(forSearchText: text, andPageNo: currentPage)
+        } else {
+            self.view.show([])
         }
     }
     
@@ -50,10 +72,5 @@ extension ImageSearchPresenter: ImageSearchPresentable {
         for photo in photos { self.photosUIModel.append(self.convertToUIModel(photo)) }
         if self.totalPages == nil || self.totalPages != totalPages { self.totalPages = totalPages }
         self.view.show(photosUIModel)
-    }
-    
-    func onViewDidLoad() {
-        currentPage = 1
-        interactor?.getPhotos(forSearchText: "Food", andPageNo: currentPage)
     }
 }
