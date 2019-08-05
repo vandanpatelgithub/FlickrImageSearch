@@ -9,16 +9,18 @@
 import UIKit
 
 class ImageSearchBuilder {
-    static func buildImageSearchView() -> ImageSearchViewController? {
+    static func buildImageSearchView() -> UINavigationController? {
         let storyboard = UIStoryboard(name: "ImageSearch", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "ImageSearchVC") as? ImageSearchViewController else {
             return nil
         }
+        let navVC = UINavigationController(rootViewController: vc)
         let interactor = ImageSearchInteractor(networkManager: NetworkManager())
         let presenter = ImageSearchPresenter(view: vc, interactor: interactor)
-        let router = ImageSearchRouter(view: vc)
+        let router = ImageSearchRouter(navVC: navVC)
+        presenter.router = router
         vc.presenter = presenter
         interactor.presenter = presenter
-        return vc
+        return navVC
     }
 }

@@ -6,10 +6,10 @@
 //  Copyright © 2019 Vandan Patel. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum ImageSearchPresenterConstants {
-    static let minimumSearchTextLength = 3
+    static let minimumSearchTextLength = 2
 }
 
 // MARK: - ImageSearchPresentable protocol
@@ -17,6 +17,7 @@ protocol ImageSearchPresentable: class {
     func didGetPhotos(_ photos: [Photo], totalPages: Int)
     func getNewSearchResults(forSearchTest text: String)
     func getNextPageResults()
+    func didSelectImage(_ image: UIImage)
     
     var fetchingMore: Bool { get set }
 }
@@ -24,6 +25,7 @@ protocol ImageSearchPresentable: class {
 class ImageSearchPresenter {
     let view: ImageSearchViewable
     var interactor: ImageSearchInteractable?
+    var router: ImageSearchRouter?
     var photosUIModel = [PhotoUIModel]()
     
     var currentPage = 0
@@ -44,6 +46,10 @@ class ImageSearchPresenter {
 
 // MARK: - ImageSearchPresentable Conformation
 extension ImageSearchPresenter: ImageSearchPresentable {
+    func didSelectImage(_ image: UIImage) {
+        router?.navigateToFullImageVC(withImage: image)
+    }
+    
     func getNextPageResults() {
         currentPage += 1
         fetchingMore = true

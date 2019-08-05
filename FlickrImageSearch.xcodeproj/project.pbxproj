@@ -29,7 +29,8 @@
 		2BA2E3C322ED514300669D19 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3C222ED514300669D19 /* Router.swift */; };
 		2BA2E3C722ED570500669D19 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3C622ED570500669D19 /* FlickrAPI.swift */; };
 		2BA2E3CA22ED5AE000669D19 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E3C922ED5AE000669D19 /* NetworkManager.swift */; };
-		2BB1FE3D22F7CEAF006FAAE5 /* ImageSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB1FE3C22F7CEAF006FAAE5 /* ImageSearchRouter.swift */; };
+		2BB1FE4222F7D5E5006FAAE5 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB1FE4122F7D5E5006FAAE5 /* FullImageViewController.swift */; };
+		2BB1FE4422F7D624006FAAE5 /* ImageSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB1FE4322F7D624006FAAE5 /* ImageSearchRouter.swift */; };
 		2BBC0C9A22EFB9690072252B /* ImageSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0C9922EFB9690072252B /* ImageSearchPresenter.swift */; };
 		2BBC0C9D22EFBB3B0072252B /* ImageSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0C9C22EFBB3B0072252B /* ImageSearchInteractor.swift */; };
 		2BBC0CA522F285830072252B /* PhotoCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC0CA422F285830072252B /* PhotoCellInteractor.swift */; };
@@ -77,7 +78,8 @@
 		2BA2E3C222ED514300669D19 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		2BA2E3C622ED570500669D19 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		2BA2E3C922ED5AE000669D19 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		2BB1FE3C22F7CEAF006FAAE5 /* ImageSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchRouter.swift; sourceTree = "<group>"; };
+		2BB1FE4122F7D5E5006FAAE5 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		2BB1FE4322F7D624006FAAE5 /* ImageSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchRouter.swift; sourceTree = "<group>"; };
 		2BBC0C9922EFB9690072252B /* ImageSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchPresenter.swift; sourceTree = "<group>"; };
 		2BBC0C9C22EFBB3B0072252B /* ImageSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchInteractor.swift; sourceTree = "<group>"; };
 		2BBC0CA422F285830072252B /* PhotoCellInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellInteractor.swift; sourceTree = "<group>"; };
@@ -163,12 +165,12 @@
 		2BA2E39322ECA11C00669D19 /* ImageSearchModule */ = {
 			isa = PBXGroup;
 			children = (
+				2BB1FE4022F7D5A8006FAAE5 /* Router */,
 				2BE18A3B22EFA4E80026213E /* Builder */,
 				2BE18A2C22EF62FC0026213E /* View */,
 				2BBC0C9B22EFBB260072252B /* Interactor */,
 				2BBC0C9822EFB9480072252B /* Presenter */,
 				2BA2E39422ECA12900669D19 /* Entity */,
-				2BB1FE3B22F7CE6E006FAAE5 /* Router */,
 			);
 			path = ImageSearchModule;
 			sourceTree = "<group>";
@@ -231,10 +233,10 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		2BB1FE3B22F7CE6E006FAAE5 /* Router */ = {
+		2BB1FE4022F7D5A8006FAAE5 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				2BB1FE3C22F7CEAF006FAAE5 /* ImageSearchRouter.swift */,
+				2BB1FE4322F7D624006FAAE5 /* ImageSearchRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -263,6 +265,7 @@
 				2BE18A2D22EF63260026213E /* ImageSearchViewController.swift */,
 				2BE18A3322EF65DC0026213E /* ImageSearch.storyboard */,
 				2BE18A3922EFA2EE0026213E /* PhotoCell.swift */,
+				2BB1FE4122F7D5E5006FAAE5 /* FullImageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				2BA2E3B922ED495100669D19 /* HTTPTask.swift in Sources */,
 				2BA2E3C722ED570500669D19 /* FlickrAPI.swift in Sources */,
 				2BBC0C9A22EFB9690072252B /* ImageSearchPresenter.swift in Sources */,
+				2BB1FE4222F7D5E5006FAAE5 /* FullImageViewController.swift in Sources */,
 				2BE18A2F22EF63260026213E /* ImageSearchViewController.swift in Sources */,
 				2BA2E3A322ECCD2900669D19 /* Utilities.swift in Sources */,
 				2BBC0CA522F285830072252B /* PhotoCellInteractor.swift in Sources */,
@@ -392,8 +396,8 @@
 				2BA2E3C122ED50BC00669D19 /* NetworkRouter.swift in Sources */,
 				2BA2E3BD22ED495100669D19 /* EndPointType.swift in Sources */,
 				2BA2E3A122ECCCCC00669D19 /* PhotoUIModel.swift in Sources */,
+				2BB1FE4422F7D624006FAAE5 /* ImageSearchRouter.swift in Sources */,
 				2BA2E37122EC9F7400669D19 /* AppDelegate.swift in Sources */,
-				2BB1FE3D22F7CEAF006FAAE5 /* ImageSearchRouter.swift in Sources */,
 				2BA2E3BC22ED495100669D19 /* HTTPMethod.swift in Sources */,
 				2BA2E3CA22ED5AE000669D19 /* NetworkManager.swift in Sources */,
 				2BA2E3BB22ED495100669D19 /* URLParameterEncoder.swift in Sources */,

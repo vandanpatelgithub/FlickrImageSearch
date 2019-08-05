@@ -46,6 +46,7 @@ class ImageSearchViewController: UIViewController {
         searchResultsController.searchBar.placeholder = "Search Food"
         navigationItem.searchController = searchResultsController
         navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
     }
 }
 
@@ -83,6 +84,12 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! PhotoCell
+        guard let selectedImage = selectedCell.photoImageView.image else { return }
+        presenter?.didSelectImage(selectedImage)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -90,6 +97,7 @@ extension ImageSearchViewController: UICollectionViewDelegate, UICollectionViewD
         if offsetY > contentHeight - scrollView.frame.height && contentHeight > 0 {
             guard let presenter = presenter else { return }
             if (!presenter.fetchingMore)  {
+                activityIndicator.startAnimating()
                 presenter.getNextPageResults()
             }
         }
@@ -105,6 +113,7 @@ extension ImageSearchViewController: ImageSearchViewable {
     func show(_ photos: [PhotoUIModel]) {
         self.photos = photos
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
             self.collectionView.reloadData()
         }
     }
@@ -114,6 +123,7 @@ extension ImageSearchViewController: ImageSearchViewable {
 extension ImageSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
+        activityIndicator.startAnimating()
         presenter?.getNewSearchResults(forSearchTest: text)
     }
 }

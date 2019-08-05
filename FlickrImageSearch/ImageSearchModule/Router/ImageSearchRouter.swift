@@ -8,16 +8,23 @@
 
 import UIKit
 
-protocol ImageSearchRoutable: class {
+protocol ImageSearchRoutable {
+    func navigateToFullImageVC(withImage image: UIImage)
 }
 
 class ImageSearchRouter {
-    let view: UIViewController
+    let navVC: UINavigationController
     
-    init(view: UIViewController) {
-        self.view = view
+    init(navVC: UINavigationController) {
+        self.navVC = navVC
     }
 }
 
 extension ImageSearchRouter: ImageSearchRoutable {
+    func navigateToFullImageVC(withImage image: UIImage) {
+        let storyboard = UIStoryboard(name: "ImageSearch", bundle: nil)
+        let fullImageVC = storyboard.instantiateViewController(withIdentifier: "FullImageVC") as! FullImageViewController
+        fullImageVC.imageData = image.pngData()
+        navVC.present(fullImageVC, animated: true, completion: nil)
+    }
 }
